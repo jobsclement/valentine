@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Valentine? 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #f8e1e9 50%, #ffe4f0 100%);
+            color: #333;
+            overflow: hidden;
+            position: relative;
+            cursor: default;
+        }
+
+        /* Floating petals background */
+        .petals {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .petal {
+            position: absolute;
+            width: 16px;
+            height: 24px;
+            background: radial-gradient(circle at 30% 30%, #ff9ec1, #ff6b9d);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.7;
+            animation: float 18s infinite linear;
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.4);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-20vh) rotate(720deg) scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3.2rem, 9vw, 6.5rem);
+            color: #e91e63;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
+            animation: heartbeat 3s infinite ease-in-out;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.3rem, 4.5vw, 2.1rem);
+            color: #c2185b;
+            margin: 1.5rem 0 3rem;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            justify-content: center;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .btn {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1.1rem 3.2rem;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            user-select: none;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #ff4081, #f50057);
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-6px) scale(1.08);
+            box-shadow: 0 14px 35px rgba(244, 67, 54, 0.45);
+        }
+
+        .btn-no {
+            background: linear-gradient(45deg, #78909c, #455a64);
+            color: white;
+            position: relative;
+            transition: all 0.18s ease;
+        }
+
+        .btn-no:hover {
+            background: linear-gradient(45deg, #607d8b, #37474f);
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 2.8rem;
+            pointer-events: none;
+            user-select: none;
+            animation: floatAway 2.5s forwards;
+            z-index: 20;
+        }
+
+        @keyframes floatAway {
+            to {
+                transform: translateY(-180px) scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .buttons {
+                flex-direction: column;
+                gap: 3.5rem;
+            }
+
+            .btn {
+                font-size: 1.4rem;
+                padding: 1rem 2.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="petals" id="petalContainer"></div>
+
+    <div class="container">
+        <h1>My Dearest Helene 💖</h1>
+        <div class="subtitle">
+            Will you make me the happiest person in the world<br>
+            and be my Valentine? 🌸
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="yesClicked()">Yes! 💕</button>
+            <button class="btn btn-no" id="noBtn">No 😢</button>
+        </div>
+    </div>
+
+    <script>
+        // Floating petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (Math.random() * 12 + 14) + 's';
+            petal.style.animationDelay = Math.random() * 8 + 's';
+            petal.style.opacity = Math.random() * 0.4 + 0.4;
+            document.getElementById('petalContainer').appendChild(petal);
+
+            setTimeout(() => petal.remove(), 25000);
+        }
+
+        setInterval(createPetal, 380);
+        // initial burst
+        for (let i = 0; i < 12; i++) createPetal();
+
+        // Fleeing NO button
+        const noBtn = document.getElementById('noBtn');
+
+        function escapeNo() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+            // Use fixed positioning so it can go anywhere on screen
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.zIndex = '1000';
+        }
+
+        noBtn.addEventListener('mouseover', escapeNo);
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            escapeNo();
+        });
+
+        // Yes button action
+        function yesClicked() {
+            // You can customize this part a lot
+            document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content:center;
+          background: linear-gradient(135deg, #fff0f5, #ffebee);
+          font-family: 'Dancing Script', cursive;
+          color:#c2185b;
+          text-align:center;
+          padding:30px;
+        ">
+          <h1 style="font-size:7rem;margin-bottom:1rem;">YESSS!!! 🥰💖</h1>
+          <p style="font-size:2.8rem; max-width:90%;">
+            I love you so much ${'Helene'}!<br>
+            Best Valentine's Day ever starts now ♡
+          </p>
+          <div style="font-size:6rem; margin:2rem 0;">💐🌸💕🌷💞</div>
+        </div>
+      `;
+        }
+    </script>
+</body>
+
+</html>
